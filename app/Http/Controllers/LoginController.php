@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\SignupActivate;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Validator;
+
 class LoginController extends Controller
 {
     /**
@@ -19,7 +17,7 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
         $credentials = [   //creates an object
-            'email' => $request->email,
+            'email' => $request-> email,
             'password' => $request->password,
             'active' => 1, //verified
             'deleted_at' => null
@@ -28,7 +26,7 @@ class LoginController extends Controller
         if (auth()->attempt($credentials)) {
 
             $output['token'] = auth()->user()->createToken('nyanchat')->accessToken;
-            $output['email'] = $credentials->email;
+            $output['email'] = $credentials ['email'];
             return response()->json(['output' => $output], 200); //will show the token and user's email
         } else {
             return response()->json(['error' => 'UnAuthorised'], 401);
