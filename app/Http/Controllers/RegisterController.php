@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\SignupActivate;
+use App\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use Validator;
 class RegisterController extends Controller
 {
     /**
      * Handles Registration Request
      */
+    public $successStatus = 200;
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [ //basically checks that these fields are present

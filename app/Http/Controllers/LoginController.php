@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\SignupActivate;
+use App\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
+use Validator;
 class LoginController extends Controller
 {
     /**
