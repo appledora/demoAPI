@@ -15,7 +15,6 @@ class User extends Authenticatable
     protected $dates = ['deleted_at'];
     /**
      * The attributes that are mass assignable.
-
      */
     protected $fillable = [
         'name', 'email', 'password','active', 'activation_token',

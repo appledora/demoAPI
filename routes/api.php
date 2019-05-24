@@ -14,20 +14,20 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('login', 'PassportController@login');
-Route::post('register', 'PassportController@register');
-Route::get('register/activate/{token}', 'PassportController@signupActivate');
+Route::post('login', 'LoginController@login');
+Route::post('register', 'RegisterController@register');
+Route::get('register/activate/{token}', 'RegisterController@signupActivate');
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('details', 'PassportController@details'); //information of the logged in user
-    Route::get('logout', 'PassportController@logout');
+    Route::get('details', 'DetailsController@details'); //information of the logged in user
+    Route::get('logout', 'LoginController@logout');
 });
 
 //everything regarding password reset
 Route::group([
     'namespace' => 'Auth',
     'middleware' => 'api',
-    'prefix' => 'password'
+    'prefix' => 'password' // http://demoapi.test/api/password
 ], function () {
     Route::post('create', 'PasswordResetController@create'); //token creation
     Route::get('find/{token}', 'PasswordResetController@find'); // find info of the user who requested a password reset
