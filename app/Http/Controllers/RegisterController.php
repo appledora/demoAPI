@@ -21,6 +21,9 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'password' => 'required',
             'c_password' => 'required|same:password',
+            'registration_number' => 'required',
+            'department' => 'required',
+            'contact_number' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 401);
@@ -30,6 +33,9 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'registration_number' => $request -> registration_number,
+            'department' => $request -> department,
+            'contact_number' =>$request -> contact_number,
             'activation_token' => Str::random(60)
         ]);
 
@@ -37,7 +43,7 @@ class RegisterController extends Controller
 
         $output['token'] = $user->createToken('nyanradio')->accessToken;
         $output['name'] = $user->name;
-        return response()->json(['output' => $output], $this->successStatus);
+        return response()->json(['output' => $user], $this->successStatus);
     }
 
     public function signupActivate($token) //changes the userstatus  after mail verification
