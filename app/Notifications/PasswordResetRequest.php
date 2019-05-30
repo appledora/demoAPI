@@ -33,11 +33,12 @@ class PasswordResetRequest extends Notification
     public function toMail($notifiable)
     {
         $url = url('/api/password/find/'.$this->token);
-
+        $passwordToken = $this->token;
         return (new MailMessage)
-            ->line('You are receiving this email because we        received a password reset request for your account.')
-            ->action('Reset Password', url($url))
-            ->line('If you did not request a password reset, no further action is required.');
+            ->line('You are receiving this email because we received a password reset request for your account.')
+            ->line('If you did not request a password reset, no further action is required.')
+            ->line("Copy the following token string to reset password.")
+            ->line($passwordToken);
     }
 
     /**

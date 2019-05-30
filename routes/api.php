@@ -14,13 +14,14 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('login', 'LoginController@login');
+Route::post('login', 'LoginController@login') -> name('login');
 Route::post('register', 'RegisterController@register');
 Route::get('register/activate/{token}', 'RegisterController@signupActivate');
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(
+    function () {
     Route::get('details', 'DetailsController@details'); //information of the logged in user
-    Route::get('logout', 'LoginController@logout');
+    Route::get('logout', 'LoginController@logout') -> name('logout');
 });
 
 //everything regarding password reset

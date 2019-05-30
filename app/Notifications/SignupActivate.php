@@ -44,7 +44,7 @@ class SignupActivate extends Notification
 
         return (new MailMessage)
             ->subject('Confirm your account')
-            ->line('Thanks for signup! Please before you begin, you must confirm your account.')
+            ->line('Thanks for signing up with RadioMeow')
             ->action('Confirm Account', url($url))
             ->line('Thank you for using our application!');
     }

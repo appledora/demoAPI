@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
@@ -24,15 +25,14 @@ class PasswordResetController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user)
-            return response()->json([
-                'message' => 'We cant find a user with that e-mail address.'
+            return response()->json([ 'message' => 'The email isn\'t registered'
             ], 404);
 
         $passwordReset = PasswordReset::updateOrCreate(
             ['email' => $user->email],
             [
                 'email' => $user->email,
-                'token' => str_random(60)
+                'token' => Str::random(60)
              ]
         );
 
@@ -43,7 +43,7 @@ class PasswordResetController extends Controller
 
         return response()->json([
             'message' => 'We have e-mailed your password reset link!'
-        ]);
+        ], 200);
     }
 
     /**
@@ -76,7 +76,8 @@ class PasswordResetController extends Controller
     {
         $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string|confirmed',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
             'token' => 'required|string'
         ]);
 

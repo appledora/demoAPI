@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Validator;
 
 class LoginController extends Controller
@@ -25,7 +26,7 @@ class LoginController extends Controller
 
         if (auth()->attempt($credentials)) {
 
-            $output['token'] = auth()->user()->createToken('nyanchat')->accessToken;
+            $output['token'] = auth()->user()->createToken('nyanradio')->accessToken;
             $output['email'] = $credentials ['email'];
             return response()->json(['output' => $output], 200); //will show the token and user's email
         } else {
@@ -39,9 +40,11 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $request->user()->token()->revoke();
+       $accessToken = auth() -> user() ->token();
+       $accessToken ->revoke();
 
         return response()->json([
-            'message' => 'Successfully logged out'
-        ]);
+           'message' => 'Successfully logged out'
+        ],200);
     }
 }

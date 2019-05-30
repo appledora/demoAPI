@@ -42,8 +42,7 @@ class RegisterController extends Controller
         $user->notify(new SignupActivate($user));
 
         $output['token'] = $user->createToken('nyanradio')->accessToken;
-        $output['name'] = $user->name;
-        return response()->json(['output' => $user], $this->successStatus);
+        return response()->json(['output' => $output], $this->successStatus);
     }
 
     public function signupActivate($token) //changes the userstatus  after mail verification
